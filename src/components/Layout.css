@@ -1,0 +1,61 @@
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+#root {
+  /* likely already has height rules from index.css — don't fight those */
+}
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header, footer {
+  flex-shrink: 0; /* keep these their natural size, don't let them get squished */
+}
+
+main {
+  flex: 1; /* fills whatever space is left between header and footer */
+  display: grid;
+  /* your grid-template-rows/columns go here once you build the panels */
+
+    grid-template-rows: 20% 1fr;
+    grid-template-columns: 65% 35%;
+}
+
+
+.box-1 {
+  background-color: #B7C3F3;
+  grid-row: 1;
+  grid-column: 1 / -1;
+  border-radius: 40px; 
+  margin: 8px;
+}
+
+.box-2 {
+  background-color: #F5EDF0;
+  grid-row: 2;
+  grid-column: 1;
+  border-radius: 40px; 
+  margin: 4px;
+
+}
+
+.box-3 {
+  background-color: #3E517A;
+  grid-row: 2;
+  grid-column: 2;
+  border-radius: 40px; 
+  margin: 4px;
+}
+
+/* whatever wraps your Outlet content needs to sit in the same cell, on top */
+.content {
+  grid-row: 1;
+  grid-column: 1;
+  position: relative;
+  z-index: 1;
+}

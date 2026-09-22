@@ -1,17 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { PackageProvider } from './context/PackageContext';
+import Layout from './components/Layout';
 import OpeningPage from './pages/OpeningPage';
-import FillTheBoxPage from './pages/FillTheBoxPage';
 import ArrivalPage from './pages/ArrivalPage';
+import FillTheBoxPage from './pages/FillTheBoxPage';
 
 function App() {
   return (
     <PackageProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<OpeningPage />} />
-          <Route path="/fill-the-box" element={<FillTheBoxPage />} />
-          <Route path="/arrival" element={<ArrivalPage />} />
+          <Route element={<Layout />}>
+            <Route path="/" element={<OpeningPage />} />
+            <Route path="/fill-the-box" element={<FillTheBoxPage />} />
+            <Route path="/arrival" element={<ArrivalPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </PackageProvider>
