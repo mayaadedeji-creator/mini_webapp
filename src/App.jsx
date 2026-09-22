@@ -4,6 +4,8 @@ import Layout from './components/Layout';
 import OpeningPage from './pages/OpeningPage';
 import ArrivalPage from './pages/ArrivalPage';
 import FillTheBoxPage from './pages/FillTheBoxPage';
+import './App.css';
+
 
 function App() {
   return (
