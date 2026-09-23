@@ -1,6 +1,54 @@
-.item-list {
+.in-box-3 {
   display: flex;
-  overflow-x: auto;
-  gap: 12px;
-  padding: 12px;
+  flex-direction: column;
+  min-height: 0; /* lets the child actually scroll instead of overflowing */
+}
+
+
+.item-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  overflow-y: auto;
+  gap: 10px;
+  padding: 16px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.item-card {
+  display: flex;
+  flex-direction: column;    /* was row (default) — stacks children vertically */
+  align-items: stretch;      /* lets the image fill the card's full width */
+  gap: 24px;                 /* keeping your existing gap */
+  background-color: rgba(255, 255, 255, 0.12);
+  border: none;
+  border-radius: 16px;
+  padding: 8px 12px;         /* keeping your existing padding */
+  cursor: pointer;
+  text-align: left;
+}
+
+.item-card:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.item-thumb {
+  width: 100%;              /* was 60px — now fills the card's full width */
+  aspect-ratio: 1 / 1;       /* keeps it a perfect square as width changes */
+  border-radius: 8px;
+  background-color: #F5EDF0;
+  overflow: hidden;
+}
+
+.item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-name {
+  color: #F5EDF0;
+  font-size: 14px;
+  font-family: inherit;
+  text-align: center;
 }

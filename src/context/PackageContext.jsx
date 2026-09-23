@@ -7,12 +7,20 @@ export function PackageProvider({ children }) {
   const [from, setFrom] = useState('');
   const [items, setItems] = useState([]);
 
-  const addItem = (item) => setItems((prev) => [...prev, item]);
-  const removeItem = (id) => setItems((prev) => prev.filter((i) => i.id !== id));
+  const addItem = (item) => {
+    setItems((prev) => {
+      const alreadyIn = prev.some((i) => i.id === item.id);
+      if (alreadyIn) {
+        return prev.filter((i) => i.id !== item.id);
+      }
+      return [...prev, item];
 
-  const value = { to, setTo, from, setFrom, items, addItem, removeItem };
+});
+  };
 
-  return (
+  const value = { to, setTo, from, setFrom, items, addItem };
+
+    return (
     <PackageContext.Provider value={value}>
       {children}
     </PackageContext.Provider>
