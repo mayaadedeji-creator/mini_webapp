@@ -12,3 +12,5 @@ export function normalizeLink(input) {
     return null;
   }
 }
+
+export const WHY_PREFIX = "I'm sending this for when";

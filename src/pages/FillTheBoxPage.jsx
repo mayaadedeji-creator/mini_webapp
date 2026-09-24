@@ -44,13 +44,7 @@ export default function FillTheBoxPage() {
 
       <div className="in-box-2">
       <BoxDisplay state="open" />
-      <h2>In your box:</h2>
-      <ul>
-        {items.map((item) => (
-      <li key={item.id}>{item.name}</li>
-    ))}
-    </ul>
-    <button onClick={() => navigate('/arrival')}>
+    <button className="finish-button" onClick={() => navigate('/arrival')}>
       Finish and preview package
   </button>
 </div>
@@ -58,18 +52,23 @@ export default function FillTheBoxPage() {
 
       <div className="in-box-3">
         <div className="item-list">
-          {availableItems.map((item) => (
+          {availableItems.map((item) => {
+            const inBox = items.some((i) => i.id === item.id);
+            return (
             <button
               key={item.id}
-              className="item-card"
+              className={`item-card${inBox ? ' is-in-box' : ''}`}
               onClick={() => setActiveItem(item)}
+              aria-label={inBox ? `${item.name} (in your box)` : item.name}
             >
+              {inBox && <span className="item-check" aria-hidden="true">✓</span>}
               <div className="item-thumb">
                 <img src={item.image} alt="" />
               </div>
               <span className="item-name">{item.name}</span>
             </button>
-          ))}
+            );
+          })}
         </div>
       </div>
 

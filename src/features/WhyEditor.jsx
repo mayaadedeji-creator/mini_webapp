@@ -1,4 +1,4 @@
-const WHY_PREFIX = "I'm sending this for when";
+import { WHY_PREFIX } from './helpers.js';
 const WHY_MAX = 200;
 
 export default function WhyEditor({ value, onChange }) {

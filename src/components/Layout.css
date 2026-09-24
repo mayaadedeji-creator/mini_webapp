@@ -90,3 +90,24 @@ main {
   min-width: 0;
   overflow: hidden;
 }
+/* Line the content layer up with the colored boxes behind it (same margins),
+   and keep it clear of their rounded corners. */
+.in-box-1 {
+  margin: 8px;
+}
+
+.in-box-2,
+.in-box-3 {
+  height: auto;
+  margin: 4px;
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+
+.in-box-2 {
+  padding: 16px;
+}
+
+.in-box-3 {
+  padding: 24px 10px 24px 16px;
+}
