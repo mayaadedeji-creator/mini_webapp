@@ -8,7 +8,7 @@ import './ArrivalPage.css';
 
 export default function ArrivalPage() {
   const navigate = useNavigate();
-  const { items, from } = usePackage();
+  const { items, to, from } = usePackage();
   const [opened, setOpened] = useState(false);
   const [viewing, setViewing] = useState(null);
   const [seen, setSeen] = useState(() => new Set());
@@ -36,7 +36,7 @@ export default function ArrivalPage() {
       <div className="in-box-2 arrival-stage">
         {opened ? (
           <div className="arrival-box is-open">
-            <BoxDisplay state="open" />
+            <BoxDisplay state="open" label={{ to, from }} />
           </div>
         ) : (
           <button
@@ -45,7 +45,7 @@ export default function ArrivalPage() {
             disabled={isEmpty}
             aria-label="Open the box"
           >
-            <BoxDisplay state="closed" />
+            <BoxDisplay state="closed" label={{ to, from }} />
           </button>
         )}
         <p className="arrival-hint">{hint}</p>

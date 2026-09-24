@@ -30,7 +30,7 @@ const availableItems = [
 
 export default function FillTheBoxPage() {
   const navigate = useNavigate();
-  const { items, saveItem, removeItem } = usePackage();
+  const { items, saveItem, removeItem, to, from } = usePackage();
   const [activeItem, setActiveItem] = useState(null);
 
   const existing = activeItem && items.find((i) => i.id === activeItem.id);
@@ -43,8 +43,8 @@ export default function FillTheBoxPage() {
       </div>
 
       <div className="in-box-2">
-      <BoxDisplay state="open" />
-    <button className="finish-button" onClick={() => navigate('/arrival')}>
+      <BoxDisplay state="open" label={{ to, from }} />
+    <button className="page-button" onClick={() => navigate('/arrival')}>
       Finish and preview package
   </button>
 </div>
