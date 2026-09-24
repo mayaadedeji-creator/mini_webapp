@@ -7,20 +7,25 @@ export function PackageProvider({ children }) {
   const [from, setFrom] = useState('');
   const [items, setItems] = useState([]);
 
-  const addItem = (item) => {
+  // Adds the item, or replaces it if it's already in the box (e.g. after editing).
+  // item looks like { id, name, image, data } — data is whatever that feature's editor saves.
+  const saveItem = (item) => {
     setItems((prev) => {
       const alreadyIn = prev.some((i) => i.id === item.id);
       if (alreadyIn) {
-        return prev.filter((i) => i.id !== item.id);
+        return prev.map((i) => (i.id === item.id ? item : i));
       }
       return [...prev, item];
-
-});
+    });
   };
 
-  const value = { to, setTo, from, setFrom, items, addItem };
+  const removeItem = (id) => {
+    setItems((prev) => prev.filter((i) => i.id !== id));
+  };
 
-    return (
+  const value = { to, setTo, from, setFrom, items, saveItem, removeItem };
+
+  return (
     <PackageContext.Provider value={value}>
       {children}
     </PackageContext.Provider>

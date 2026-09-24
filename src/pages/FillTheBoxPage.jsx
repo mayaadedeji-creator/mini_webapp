@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePackage } from '../context/PackageContext';
 
@@ -12,6 +13,7 @@ import drawingIcon from '../assets/drawing.svg';
 import whyIcon from '../assets/why-im-sending-this.svg';
 import recommendationIcon from '../assets/recommendation.svg';
 import BoxDisplay from '../components/BoxDisplay.jsx';
+import FeatureModal from '../components/FeatureModal.jsx';
 
 const availableItems = [
   { id: 'letter', name: 'Letter', image: letterIcon },
@@ -28,7 +30,11 @@ const availableItems = [
 
 export default function FillTheBoxPage() {
   const navigate = useNavigate();
-  const { items, addItem } = usePackage();
+  const { items, saveItem, removeItem } = usePackage();
+  const [activeItem, setActiveItem] = useState(null);
+
+  const existing = activeItem && items.find((i) => i.id === activeItem.id);
+  const closeModal = () => setActiveItem(null);
 
   return (
     <>
@@ -40,8 +46,8 @@ export default function FillTheBoxPage() {
       <BoxDisplay state="open" />
       <h2>In your box:</h2>
       <ul>
-        {items.map((item, index) => (
-      <li key={index}>{item.name}</li>
+        {items.map((item) => (
+      <li key={item.id}>{item.name}</li>
     ))}
     </ul>
     <button onClick={() => navigate('/arrival')}>
@@ -56,7 +62,7 @@ export default function FillTheBoxPage() {
             <button
               key={item.id}
               className="item-card"
-              onClick={() => addItem(item)}
+              onClick={() => setActiveItem(item)}
             >
               <div className="item-thumb">
                 <img src={item.image} alt="" />
@@ -66,6 +72,23 @@ export default function FillTheBoxPage() {
           ))}
         </div>
       </div>
+
+      {activeItem && (
+        <FeatureModal
+          key={activeItem.id}
+          item={activeItem}
+          existing={existing}
+          onSave={(data) => {
+            saveItem({ ...activeItem, data });
+            closeModal();
+          }}
+          onRemove={() => {
+            removeItem(activeItem.id);
+            closeModal();
+          }}
+          onClose={closeModal}
+        />
+      )}
     </>
   );
 }
