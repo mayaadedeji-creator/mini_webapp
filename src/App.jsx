@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { PackageProvider } from './context/PackageContext';
 import Layout from './components/Layout';
-import OpeningPage from './pages/OpeningPage';
-import ArrivalPage from './pages/ArrivalPage';
-import FillTheBoxPage from './pages/FillTheBoxPage';
+import OpeningPage from './Pages/OpeningPage';
+import ArrivalPage from './Pages/ArrivalPage';
+import FillTheBoxPage from './Pages/FillTheBoxPage';
 import './App.css';
 
 

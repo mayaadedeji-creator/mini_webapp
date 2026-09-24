@@ -11,6 +11,7 @@ import voiceMemoIcon from '../assets/voice-memo.svg';
 import drawingIcon from '../assets/drawing.svg';
 import whyIcon from '../assets/why-im-sending-this.svg';
 import recommendationIcon from '../assets/recommendation.svg';
+import BoxDisplay from '../components/BoxDisplay.jsx';
 
 const availableItems = [
   { id: 'letter', name: 'Letter', image: letterIcon },
@@ -36,16 +37,18 @@ export default function FillTheBoxPage() {
       </div>
 
       <div className="in-box-2">
-        <h2>In your box:</h2>
-        <ul>
-          {items.map((item, index) => (
-            <li key={index}>{item.name}</li>
-          ))}
-        </ul>
-        <button onClick={() => navigate('/arrival')}>
-          Finish and preview package
-        </button>
-      </div>
+      <BoxDisplay state="open" />
+      <h2>In your box:</h2>
+      <ul>
+        {items.map((item, index) => (
+      <li key={index}>{item.name}</li>
+    ))}
+    </ul>
+    <button onClick={() => navigate('/arrival')}>
+      Finish and preview package
+  </button>
+</div>
+
 
       <div className="in-box-3">
         <div className="item-list">

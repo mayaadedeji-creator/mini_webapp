@@ -36,7 +36,7 @@
   width: 100%;              /* was 60px — now fills the card's full width */
   aspect-ratio: 1 / 1;       /* keeps it a perfect square as width changes */
   border-radius: 8px;
-  background-color: #F5EDF0;
+  background-color: #fff;
   overflow: hidden;
 }
 
@@ -47,7 +47,7 @@
 }
 
 .item-name {
-  color: #F5EDF0;
+  color: white;
   font-size: 14px;
   font-family: inherit;
   text-align: center;
