@@ -28,7 +28,3 @@ A "digital care package" builder. The user moves through three routed steps:
 **Box visual.** `components/BoxDisplay.jsx` takes `state="open" | "closed"` and swaps between the SVGs in `src/assets/box/`.
 
 **Items.** The item catalog (`availableItems`: `id`, `name`, imported SVG icon) is defined inline at the top of `FillTheBoxPage.jsx`. Icons live in `src/assets/`.
-
-## Gotchas
-
-- `App.jsx` imports pages from `./Pages/...`, but the directory is `src/pages/`. This works on Windows (where development happens) but fails on case-sensitive filesystems such as Linux CI or deploy hosts. Use lowercase `pages` in new imports.
