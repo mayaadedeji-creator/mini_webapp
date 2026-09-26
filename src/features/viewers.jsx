@@ -4,6 +4,7 @@ import { SpotifyEmbed } from './SongEditor.jsx';
 import { MapEmbed } from './MapPinEditor.jsx';
 import ScratchReveal from './ScratchReveal.jsx';
 import { ScratchContent } from './ScratchOffEditor.jsx';
+import { AffirmationCard, AffirmationCredit } from './AffirmationCard.jsx';
 import { WHY_PREFIX, normalizeLink } from './helpers.js';
 
 export function LetterViewer({ value }) {
@@ -41,7 +42,12 @@ export function MapPinViewer({ value }) {
 }
 
 export function AffirmationViewer({ value }) {
-  return <div className="affirmation-card">“{value.text}”</div>;
+  return (
+    <div className="feature-stack">
+      <AffirmationCard value={value} />
+      <AffirmationCredit source={value.source} />
+    </div>
+  );
 }
 
 export function ScratchOffViewer({ value }) {

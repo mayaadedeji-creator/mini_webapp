@@ -47,7 +47,7 @@ const features = {
   affirmation: {
     Editor: AffirmationEditor,
     Viewer: viewers.AffirmationViewer,
-    initialData: { text: '' },
+    initialData: { text: '', source: null },
     isComplete: (data) => hasText(data.text),
   },
   'scratch-off': {
