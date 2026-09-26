@@ -1,24 +1,22 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { usePackage } from '../context/PackageContext';
-import BoxDisplay from '../components/BoxDisplay';
-import Modal from '../components/Modal.jsx';
+import BoxDisplay from './BoxDisplay.jsx';
+import Modal from './Modal.jsx';
 import { getFeature } from '../features';
-import './ArrivalPage.css';
+import './Unboxing.css';
 
-export default function ArrivalPage() {
-  const navigate = useNavigate();
-  const { items, to, from } = usePackage();
-  const [opened, setOpened] = useState(false);
+// The closed box → open box → open each item experience.
+// Used by the maker's preview and by the recipient's gift page; the page decides
+// whether opening is remembered (opened/seen + callbacks) and what buttons show (actions).
+export default function Unboxing({ gift, opened, onOpen, seen, onSee, actions }) {
+  const { to, from, items } = gift;
   const [viewing, setViewing] = useState(null);
-  const [seen, setSeen] = useState(() => new Set());
 
   const isEmpty = items.length === 0;
   const Viewer = viewing && getFeature(viewing.id).Viewer;
 
   const view = (item) => {
     setViewing(item);
-    setSeen((prev) => new Set(prev).add(item.id));
+    onSee(item.id);
   };
 
   let hint;
@@ -29,10 +27,6 @@ export default function ArrivalPage() {
 
   return (
     <>
-      <div className="in-box-1">
-        <h1>{from ? `A package from ${from}` : "You've got a package!"}</h1>
-      </div>
-
       <div className="in-box-2 arrival-stage">
         {opened ? (
           <div className="arrival-box is-open">
@@ -41,7 +35,7 @@ export default function ArrivalPage() {
         ) : (
           <button
             className="arrival-box is-closed"
-            onClick={() => setOpened(true)}
+            onClick={onOpen}
             disabled={isEmpty}
             aria-label="Open the box"
           >
@@ -69,9 +63,7 @@ export default function ArrivalPage() {
             ))}
           </div>
         )}
-        <button className="arrival-make-own" onClick={() => navigate('/')}>
-          Make your own
-        </button>
+        {actions && <div className="unboxing-actions">{actions}</div>}
       </div>
 
       {viewing && (

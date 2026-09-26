@@ -62,17 +62,36 @@
   display: none;
 }
 
-.arrival-make-own {
+/* Buttons pinned to the bottom of the side panel (Share, Keep editing, Make your own...) */
+.unboxing-actions {
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   margin: auto 6px 0 0; /* auto top margin pins it to the bottom */
+}
+
+.panel-button {
   padding: 10px 20px;
-  border: none;
+  border: 2px solid #B7C3F3;
   border-radius: 999px;
   font: inherit;
   font-size: 15px;
   background-color: #B7C3F3;
   color: #08060d;
+  text-align: center;
+  text-decoration: none;
   cursor: pointer;
+}
+
+.panel-button.is-secondary {
+  background-color: transparent;
+  color: #fff;
+}
+
+.panel-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 @keyframes arrival-wiggle {
@@ -104,6 +123,6 @@
   }
 }
 
-.item-list + .arrival-make-own {
+.item-list + .unboxing-actions {
   margin-top: 12px;
 }

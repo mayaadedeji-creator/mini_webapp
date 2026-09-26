@@ -23,7 +23,14 @@ export function PackageProvider({ children }) {
     setItems((prev) => prev.filter((i) => i.id !== id));
   };
 
-  const value = { to, setTo, from, setFrom, items, saveItem, removeItem };
+  // Start a brand-new gift.
+  const reset = () => {
+    setTo('');
+    setFrom('');
+    setItems([]);
+  };
+
+  const value = { to, setTo, from, setFrom, items, saveItem, removeItem, reset };
 
   return (
     <PackageContext.Provider value={value}>

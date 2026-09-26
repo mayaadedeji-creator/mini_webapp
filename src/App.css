@@ -114,3 +114,10 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.gift-missing {
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #3E517A;
+}

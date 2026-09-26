@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { usePackage } from '../context/PackageContext';
 import BoxDisplay from '../components/BoxDisplay';
 import MailLabel from '../components/MailLabel.jsx';
+import SenderSteps from '../components/SenderSteps.jsx';
 import './OpeningPage.css';
 
 // Long enough for "Grandma & Grandpa Johnson"; the label fits about two lines.
@@ -15,7 +16,7 @@ export default function OpeningPage() {
   return (
     <>
       <div className="in-box-1">
-        <h1>Opening Page</h1>
+        <SenderSteps step={1} title="Address your box" subtitle="Who is this gift for?" />
       </div>
 
       <div className="in-box-2">
@@ -47,7 +48,7 @@ export default function OpeningPage() {
         </label>
 
         <button className="page-button" disabled={!ready} onClick={() => navigate('/fill-the-box')}>
-          Next
+          Next: fill the box →
         </button>
       </div>
     </>
