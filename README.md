@@ -1,16 +1,74 @@
-# React + Vite
+# mini_webapp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Send someone a box of little things. Address a package, fill it with a letter, a song, a photo, a
+scratch-off card and more, then share a link so they can unbox it.
 
-Currently, two official plugins are available:
+Built with React and Vite.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## How it works
 
-## React Compiler
+**Making a gift** (four steps, shown at the top of each page)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **Address:** write who the box is to and from. The names appear on the shipping label, both in
+   the side panel and on the box itself, as you type.
+2. **Fill:** pick items from the shelf. Each one opens its own editor in a pop-up; items in the box
+   get a ✓.
+3. **Preview:** see the box exactly as the recipient will. Opening things here doesn't count.
+4. **Share:** the gift is saved and you get a link to copy and send.
 
-## Expanding the ESLint configuration
+**Opening a gift**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The recipient opens the link, taps the closed box to open it, and opens each item one by one (a
+pink dot marks the ones they haven't opened yet). Their browser remembers what they've opened, so
+coming back later shows the open box with everything still there. When they're done, they can make
+a gift of their own.
+
+## What can go in the box
+
+| Item | What the maker does | What the recipient gets |
+|---|---|---|
+| Letter | Types on lined notepaper (up to 1,500 characters) | The letter on paper |
+| Song | Pastes a Spotify link | A playable Spotify player |
+| Photo | Uploads a JPG or PNG | The photo |
+| Map Pin | Searches for a place | A map with a pin, plus "Open in Google Maps" |
+| Affirmation | Shuffles affirmations from the API until one fits | The chosen affirmation card |
+| Scratch Off Card | Types or draws a hidden message | A silver card to scratch off |
+| Voice Memo | Records up to 60 seconds | A playable recording |
+| Drawing | Draws with 3 colors and 2 brush sizes | The drawing |
+| Why I'm Sending This | Finishes the sentence "I'm sending this for when…" | The finished sentence |
+| Recommendation | Writes a recommendation, with an optional link | The recommendation and link |
+
+## External APIs
+
+- **[API League: Random Affirmation API](https://apileague.com/apis/random-affirmation-api/)**
+  supplies the affirmations. The maker browses affirmations pulled live from the API, picks one,
+  and that affirmation becomes part of the gift the recipient unwraps. Free plan: 50 calls a day,
+  non-commercial use, and a credit link back to API League (shown under each affirmation). If the
+  API can't be reached, the app falls back to a small built-in list so the gift can still be
+  finished.
+- **[OpenStreetMap Nominatim](https://nominatim.org/)** powers the Map Pin place search, and
+  OpenStreetMap draws the map.
+- **Spotify embeds** play the shared song.
+
+## Running it locally
+
+You'll need [Node.js](https://nodejs.org/) installed.
+
+```bash
+npm install
+npm run dev
+```
+
+Then open http://localhost:5173.
+
+Optional settings go in `.env.local` (copy `.env.example`):
+
+- **Affirmations:** a free key from [API League](https://apileague.com). Without it, the app uses a
+  small built-in list of affirmations.
+- **Sharing across devices:** a [Supabase](https://supabase.com) project URL and publishable key.
+  Run `supabase/setup.sql` once in the project's SQL Editor first. Without these, gifts are saved
+  in your browser only, so links open just on that computer.
+
+## Known limitations
+
+- **Refreshing while making a gift loses the draft.** Saved gifts aren't affected.
