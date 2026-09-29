@@ -61,12 +61,14 @@ npm run dev
 
 Then open http://localhost:5173.
 
-For live affirmations, get a free key from [API League](https://apileague.com), copy
-`.env.example` to `.env.local`, and add your key there. Without a key, the app uses a small
-built-in list of affirmations.
+Optional settings go in `.env.local` (copy `.env.example`):
+
+- **Affirmations:** a free key from [API League](https://apileague.com). Without it, the app uses a
+  small built-in list of affirmations.
+- **Sharing across devices:** a [Supabase](https://supabase.com) project URL and publishable key.
+  Run `supabase/setup.sql` once in the project's SQL Editor first. Without these, gifts are saved
+  in your browser only, so links open just on that computer.
 
 ## Known limitations
 
-- **Gift links only open in the browser that made them.** Gifts are saved in the maker's browser
-  for now, not online, so a link sent to someone else's device won't find the gift yet.
 - **Refreshing while making a gift loses the draft.** Saved gifts aren't affected.

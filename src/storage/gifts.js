@@ -1,33 +1,18 @@
 // Saving and loading gifts.
 //
-// FOR NOW this stores gifts in this browser only (IndexedDB), so gift links work on
-// this computer but not anyone else's. To make links work for everyone, replace the
-// insides of saveGift/loadGift with calls to an online database (e.g. Supabase) —
-// nothing else in the app needs to change.
+// With VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY set (see .env.example), gifts
+// are saved online in Supabase and links open on any device. Without them, gifts are
+// saved in this browser only, which is handy for running the project locally.
 
 import { fromCatalog } from '../features/catalog.js';
+import { loadLocalGift, saveLocalGift } from './localGifts.js';
 
-const DB_NAME = 'mini-webapp';
-const STORE = 'gifts';
+export const savesOnline = Boolean(
+  import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
+);
 
-function openDb() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, 1);
-    request.onupgradeneeded = () => request.result.createObjectStore(STORE);
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
-  });
-}
-
-async function withStore(mode, action) {
-  const db = await openDb();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE, mode);
-    const request = action(tx.objectStore(STORE));
-    tx.oncomplete = () => resolve(request.result);
-    tx.onerror = () => reject(tx.error);
-  });
-}
+// Supabase's library is big, so only load it when a gift is actually saved or opened.
+const online = () => import('./supabaseGifts.js');
 
 // Short, hard-to-guess id for the link, like "k3Xp9QaZ2m".
 function makeId(length = 10) {
@@ -45,13 +30,14 @@ export async function saveGift({ to, from, items }) {
     items: items.map(({ id: itemId, data }) => ({ id: itemId, data })),
     createdAt: new Date().toISOString(),
   };
-  await withStore('readwrite', (store) => store.put(gift, id));
+  if (savesOnline) await (await online()).saveOnlineGift(id, gift);
+  else await saveLocalGift(id, gift);
   return id;
 }
 
 // Returns { to, from, items } with each item's name and icon filled back in, or null.
 export async function loadGift(id) {
-  const gift = await withStore('readonly', (store) => store.get(id));
+  const gift = savesOnline ? await (await online()).loadOnlineGift(id) : await loadLocalGift(id);
   if (!gift) return null;
   return {
     ...gift,

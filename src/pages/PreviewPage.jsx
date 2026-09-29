@@ -21,7 +21,8 @@ export default function PreviewPage() {
     try {
       const id = await saveGift({ to, from, items });
       navigate(`/share/${id}`);
-    } catch {
+    } catch (err) {
+      console.error("Couldn't save gift", err);
       setError("Couldn't save your gift. Please try again.");
       setSaving(false);
     }

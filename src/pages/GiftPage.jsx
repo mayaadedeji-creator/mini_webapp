@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { usePackage } from '../context/PackageContext';
 import Unboxing from '../components/Unboxing.jsx';
-import { loadGift } from '../storage/gifts.js';
+import { loadGift, savesOnline } from '../storage/gifts.js';
 
 // What the recipient opens from the link. They unbox it once; this browser remembers
 // what they've opened, so coming back shows the open box with everything still there.
@@ -34,7 +34,10 @@ export default function GiftPage() {
   const [progress, setProgress] = useState(() => readProgress(id));
 
   useEffect(() => {
-    loadGift(id).then(setGift, () => setGift(null));
+    loadGift(id).then(setGift, (err) => {
+      console.error("Couldn't load gift", err);
+      setGift(null);
+    });
   }, [id]);
 
   const open = () => {
@@ -69,8 +72,8 @@ export default function GiftPage() {
         </div>
         <div className="in-box-2 gift-missing">
           <p>
-            Double-check the link you were sent. (While we're still testing, gifts only open in
-            the browser they were made in.)
+            Double-check the link you were sent.
+            {!savesOnline && " (While testing locally, gifts only open in the browser they were made in.)"}
           </p>
         </div>
         <div className="in-box-3">
