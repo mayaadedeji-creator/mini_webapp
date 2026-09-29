@@ -1,9 +1,18 @@
-# mini_webapp
+# ✏️ Project Name
 
-Send someone a box of little things. Address a package, fill it with a letter, a song, a photo, a
-scratch-off card and more, then share a link so they can unbox it.
+Unbox 
+* Still Pending
+* Name doesn't appear anywhere on the application
 
-Built with React and Vite.
+https://mini-webapp-ruby.vercel.app/
+
+## Intended audience
+
+For people who want to send something more personal than a text, friends and family who live far apart, or anyone marking who enjoys thoughtful gift giving.
+
+## Problem or opportunity
+
+Digital messages can feel void of emotion or lack a feeling of effort that people look for in gifts. Physical care packages are slower to procure and expensive to send. 
 
 ## How it works
 
@@ -37,6 +46,14 @@ a gift of their own.
 | Drawing | Draws with 3 colors and 2 brush sizes | The drawing |
 | Why I'm Sending This | Finishes the sentence "I'm sending this for when…" | The finished sentence |
 | Recommendation | Writes a recommendation, with an optional link | The recommendation and link |
+
+## Technical stack
+
+- **React 19** and **Vite 8**, with **React Router** for the pages
+- **Supabase** for saving gifts online (a database table, plus file storage for photos, drawings and
+  voice memos)
+- **Vercel** for hosting
+- Plain CSS
 
 ## External APIs
 
@@ -72,3 +89,16 @@ Optional settings go in `.env.local` (copy `.env.example`):
 ## Known limitations
 
 - **Refreshing while making a gift loses the draft.** Saved gifts aren't affected.
+- **Gifts can't be edited or deleted after they're shared.**
+- **Opened items are remembered per device,** so opening the same gift on a second device starts
+  with the box closed again.
+- **Affirmations are limited to 50 a day** on the API's free plan. After that, they come from the
+  built-in list until the next day.
+
+## What I would improve next
+
+- Tracking mechanism to let makers see when their gift has been opened
+- Search for songs by name instead of pasting a link
+- A layout designed specifically for phones
+- More branding/design integration
+- Making the experience more customizable, with businesses in mind.  
