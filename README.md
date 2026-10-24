@@ -52,7 +52,8 @@ a gift of their own.
 - **React 19** and **Vite 8**, with **React Router** for the pages
 - **Supabase** for saving gifts online (a database table, plus file storage for photos, drawings and
   voice memos)
-- **Vercel** for hosting
+- **Vercel** for hosting, plus a Vercel cron job (`api/keep-alive.js`) that reads from the database
+  twice a week so the free Supabase project never pauses for inactivity
 - Plain CSS
 
 ## External APIs
